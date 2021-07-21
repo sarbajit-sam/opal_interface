@@ -46,9 +46,9 @@ for i in range(len(connections)):
 # Gives us individual handles for controllers, need a new thread function to listen for data from each
 incoming_controller = []
 for connection in connections:
-    con_socket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
-    con_socket.bind((connection[0], connection[1]))
-    incoming_controller.append(controller_connection(con_socket))
+    #con_socket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
+    #con_socket.bind((connection[0], connection[1]))
+    #incoming_controller.append(controller_connection(con_socket))
 
 
 # Set up for random delays
@@ -63,18 +63,18 @@ while True:
         delay = random.randint(0, int(connections[i][2]))/1000
         time.sleep(delay)
         sendout.sendto(bytes(array.array('d', [values[i]])), (connections[i][0], connections[i][1]))
-        vals_for_opal.append(incoming_controller[i].signal)
-    sendout.sendto(bytes(array.array('d', vals_for_opal)), (opal_ip, opal_tx))
+        #vals_for_opal.append(incoming_controller[i].signal)
+    #sendout.sendto(bytes(array.array('d', vals_for_opal)), (opal_ip, opal_tx))
 
-    data = myRcv70.recvfrom(1024)
+    data1 = myRcv70.recvfrom(1024)
     values70 = array.array('d', data[0])
     print(values70)
     
-    data = myRcv211.recvfrom(1024)
+    data2 = myRcv211.recvfrom(1024)
     values211 = array.array('d', data[0])
     print(values211)
  
-    data = myRcv199.recvfrom(1024)
+    data3 = myRcv199.recvfrom(1024)
     values199 = array.array('d', data[0])
     print(values199)
  
